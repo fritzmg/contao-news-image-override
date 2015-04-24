@@ -35,7 +35,7 @@ class NewsImageOverride extends \Frontend
 		}
 
 		// check if there is any data in 'size' of article and module
-		if( $arrData['size'] == '' && $objModule->imgSize == '' )
+		if( $arrData['size'] == '' || $objModule->imgSize == '' )
 			return;
 
 		// inspect size arrays
