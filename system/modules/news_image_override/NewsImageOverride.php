@@ -21,11 +21,11 @@ class NewsImageOverride extends \Frontend
 	 */
 	public function parseArticles( $objTemplate, $arrData, $objModule )
 	{
-		// check if image is added
-		if( !$arrData['addImage'] || $arrData['singleSRC'] == '' )
+		// check if there is anything to be done at all
+		if( !$arrData['addImage'] || $arrData['singleSRC'] == '' || !$arrData['override'] || !$objModule->allowOverride )
 			return;
 
-		// in versions prior to 3.2.3 we need to fetch the original article data
+		// in versions prior to 3.2.3 we need to fetch the original article data (*NOT* from the \NewsModel)
 		// see https://github.com/contao/core/blob/3.2.2/system/modules/news/modules/ModuleNews.php#L176
 		//  vs https://github.com/contao/core/blob/3.2.3/system/modules/news/modules/ModuleNews.php#L170  
 		if( version_compare( VERSION, '3.2.3', '<' ) )
@@ -42,8 +42,8 @@ class NewsImageOverride extends \Frontend
 		$itemSize = deserialize( $arrData['size'] );
 		$moduleSize = deserialize( $objModule->imgSize );
 
-		// either width or height must be greater than zero
-		if( ( $itemSize[0] > 0 || $itemSize[1] > 0 ) && ( $moduleSize[0] > 0 || $moduleSize[1] > 0 ) )
+		// either width or height must be greater than zero, or third parameter must be numeric
+		if( ( $itemSize[0] > 0 || $itemSize[1] > 0 || is_numeric( $itemSize[2] ) ) && ( $moduleSize[0] > 0 || $moduleSize[1] > 0 || is_numeric( $moduleSize[2] ) ) )
 		{
 			// set path
 			$arrData['singleSRC'] = $objTemplate->singleSRC;
