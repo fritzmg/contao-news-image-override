@@ -13,4 +13,4 @@
  */
 
 
-$GLOBALS['TL_LANG']['tl_module']['allowOverride'] = array('Allow override','Whether the image settings of the news entry can override those of the module.');
+$GLOBALS['TL_LANG']['tl_module']['disallowOverride'] = array('Disallow override','Whether the image settings of the news entry can override those of the module.');
