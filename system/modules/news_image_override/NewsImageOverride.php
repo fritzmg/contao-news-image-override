@@ -28,7 +28,7 @@ class NewsImageOverride extends \Frontend
 		// in versions prior to 3.2.3 we need to fetch the original article data (*NOT* from the \NewsModel)
 		// see https://github.com/contao/core/blob/3.2.2/system/modules/news/modules/ModuleNews.php#L176
 		//  vs https://github.com/contao/core/blob/3.2.3/system/modules/news/modules/ModuleNews.php#L170  
-		if( version_compare( VERSION, '3.2.3', '<' ) )
+		if( version_compare( VERSION . '.' . BUILD, '3.2.3', '<' ) )
 		{
 			$objArticle = \Database::getInstance()->prepare('SELECT * FROM tl_news WHERE id = ?')->execute( $arrData['id'] );
 			$arrData = $objArticle->row();
