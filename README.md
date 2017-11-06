@@ -1,3 +1,7 @@
+[![](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/fritzmg/contao-news-image-override)
+[![](https://img.shields.io/packagist/v/fritzmg/contao-news-image-override.svg)](https://packagist.org/packages/fritzmg/contao-news-image-override)
+[![](https://img.shields.io/packagist/dt/fritzmg/contao-news-image-override.svg)](https://packagist.org/packages/fritzmg/contao-news-image-override)
+
 Contao News Image Override
 =====================
 
