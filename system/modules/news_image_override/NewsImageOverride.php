@@ -22,7 +22,7 @@ class NewsImageOverride extends \Frontend
 	public function parseArticles( $objTemplate, $arrData, $objModule )
 	{
 		// check if there is anything to be done at all
-		if( !$arrData['addImage'] || $arrData['singleSRC'] == '' || $objModule->disallowOverride )
+		if( !$arrData['addImage'] || $arrData['singleSRC'] == '' || $objModule->disallowOverride || \Validator::isUuid($objTemplate->singleSRC) )
 			return;
 
 		// in versions prior to 3.2.3 we need to fetch the original article data (*NOT* from the \NewsModel)
