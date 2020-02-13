@@ -3,7 +3,7 @@
 	"description":"Allows the image settings of each news entry in Contao to override the image settings of the news module",
 	"keywords":["contao", "news", "image", "override", "module"],
 	"type":"contao-module",
-	"homepage":"http://www.inspiredminds.at",
+	"homepage":"https://github.com/fritzmg/contao-news-image-override",
 	"license":"GPL-2.0",
 	"authors":[
 		{
