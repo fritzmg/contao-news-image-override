@@ -1,5 +1,10 @@
 <?php
 
+use Contao\Controller;
+use Contao\FilesModel;
+use Contao\StringUtil;
+use Contao\Validator;
+
 /**
  * Contao Open Source CMS
  *
@@ -13,43 +18,45 @@
  */
 
 
-class NewsImageOverride extends \Frontend
+class NewsImageOverride
 {
 	/**
 	 * Checks if there is an image size present in both the module and the news entry
 	 * and re-adds the image to the template, this time using the image size of the news entry
 	 */
-	public function parseArticles( $objTemplate, $arrData, $objModule )
+	public function parseArticles($objTemplate, $arrData, $objModule)
 	{
 		// check if there is anything to be done at all
-		if( !$arrData['addImage'] || $arrData['singleSRC'] == '' || $objModule->disallowOverride || \Validator::isUuid($objTemplate->singleSRC) )
+		if (!$arrData['addImage'] || empty($arrData['singleSRC']) || $objModule->disallowOverride || Validator::isUuid($objTemplate->singleSRC)) {
 			return;
-
-		// in versions prior to 3.2.3 we need to fetch the original article data (*NOT* from the \NewsModel)
-		// see https://github.com/contao/core/blob/3.2.2/system/modules/news/modules/ModuleNews.php#L176
-		//  vs https://github.com/contao/core/blob/3.2.3/system/modules/news/modules/ModuleNews.php#L170  
-		if( version_compare( VERSION . '.' . BUILD, '3.2.3', '<' ) )
-		{
-			$objArticle = \Database::getInstance()->prepare('SELECT * FROM tl_news WHERE id = ?')->execute( $arrData['id'] );
-			$arrData = $objArticle->row();
 		}
 
-		// check if there is any data in 'size' of article and module
-		if( $arrData['size'] == '' || $objModule->imgSize == '' )
+		// check if there is any data in 'size' of article
+		if (empty($arrData['size'])) {
 			return;
+		}
 
 		// inspect size arrays
-		$itemSize = deserialize( $arrData['size'] );
-		$moduleSize = deserialize( $objModule->imgSize );
+		$size = StringUtil::deserialize($arrData['size'], true);
 
-		// either width or height must be greater than zero, or third parameter must be numeric
-		if( ( $itemSize[0] > 0 || $itemSize[1] > 0 || is_numeric( $itemSize[2] ) ) && ( $moduleSize[0] > 0 || $moduleSize[1] > 0 || is_numeric( $moduleSize[2] ) ) )
-		{
+		if (empty($size)) {
+			return;
+		}
+
+		if (3 !== count($size)) {
+			return;
+		}
+
+		// either width or height must be greater than zero, or third parameter must be numeric or pre-defined image size identifier
+		if ($size[0] > 0 || $size[1] > 0 || is_numeric($size[2]) || (is_string($size[2]) && 0 === strpos($size[2], '_'))) {
+			// Load meta info
+			$objFile = FilesModel::findByUuid($arrData['singleSRC']);
+
 			// set path
 			$arrData['singleSRC'] = $objTemplate->singleSRC;
 
 			// re-add image to template, but this time use the article size
-			$this->addImageToTemplate( $objTemplate, $arrData );
+			Controller::addImageToTemplate($objTemplate, $arrData, null, null, $objFile);
 		}
 	}
 }
