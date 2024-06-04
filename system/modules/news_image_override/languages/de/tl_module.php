@@ -13,4 +13,4 @@
  */
 
 
-$GLOBALS['TL_LANG']['tl_module']['disallowOverride'] = array('Überschreiben nicht erlauben','Ob die Bild Einstellungen des News Eintrags die des Moduls überschreiben dürfen.');
+$GLOBALS['TL_LANG']['tl_module']['disallowOverride'] = array('Überschreiben nicht erlauben','Ob die Bild Einstellungen des Eintrags die des Moduls überschreiben dürfen.');
