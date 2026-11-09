@@ -5,3 +5,4 @@ services:
 
     InspiredMinds\ContaoNewsImageOverride\:
         resource: ../src
+        exclude: ../src/{ContaoManager,DependencyInjection,ContaoNewsImageOverrideBundle.php}
