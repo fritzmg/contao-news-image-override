@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Contao News Image Override extension.
- *
  * (c) INSPIRED MINDS
  */
 

@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 /*
- * This file is part of the Contao News Image Override extension.
- *
  * (c) INSPIRED MINDS
  */
 
@@ -65,7 +63,7 @@ class ContaoNewsImageOverrideListener
             if ($template->href && !$figure->getLinkHref()) {
                 $figure = $figureBuilder
                     ->setLinkHref($template->href)
-                    ->setLinkAttribute('title', StringUtil::specialchars(sprintf($this->translator->trans('MSC.readMore', [], 'contao_default'), $news->headline)))
+                    ->setLinkAttribute('title', StringUtil::specialchars(\sprintf($this->translator->trans('MSC.readMore', [], 'contao_default'), $news->headline)))
                     ->build()
                 ;
             }
